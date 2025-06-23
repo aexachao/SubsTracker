@@ -1,0 +1,20 @@
+name = "substracker" # 你的 Worker 名称
+main = "worker.js"                  # Worker 入口文件
+compatibility_date = "2024-06-22"   # 使用当前日期或更新日期
+
+[vars]
+# JWT_SECRET = "YOUR_SUPER_SECRET_JWT_KEY" # 🚨 不要在这里直接写，通过 `wrangler secret put JWT_SECRET` 设置
+
+[build]
+command = "" # 无需构建步骤
+
+[bindings]
+# 绑定 KV Namespace
+kv_namespaces = [
+  { binding = "SUBSCRIPTIONS_KV", id = "SUBSCRIPTIONS_KV" } # 替换为你的 KV Namespace ID
+]
+
+# 配置定时任务 (Cron Trigger)
+[triggers]
+crons = ["0 0 * * *"] # 每天 UTC 时间 0 点触发一次（即每天开始时）
+# 你可以根据需求调整触发频率，例如每小时检查一次 ["0 * * * *"]
